@@ -98,16 +98,6 @@ export default function CreatorPage() {
           const data = await res.json();
           const results = data.results || [];
           setSearchResults(results);
-          
-          // Automatically choose the first exact match if confidence is high (exact query text match)
-          if (results.length > 0) {
-            const exactMatch = results.find(
-              (m: any) => m.title.toLowerCase() === searchQuery.toLowerCase().trim()
-            );
-            if (exactMatch) {
-              handleSelectMovie(exactMatch);
-            }
-          }
         } else {
           setDetectionFeedback({ status: 'error', message: 'Failed to search movie database. Click search icon to retry.' });
         }
