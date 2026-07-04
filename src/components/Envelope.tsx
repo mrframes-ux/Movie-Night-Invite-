@@ -56,31 +56,26 @@ export default function Envelope({
 
     // Animation sequence matching the reference:
     // Step 1: Initial (sealed) — already rendered
-    // Step 2-3: Flap lifts up and opens fully (hinge at bottom edge, swings upward)
-    // Step 4-5: Ticket pops up from inside the envelope
-    // Step 6-7: Flap moves behind ticket (z-index change)
-    // Step 8: Final state → transition to standalone ticket
+    // Step 2-3: Flap lifts up and opens fully (hinge at top edge, swings upward)
+    // Step 4-5: Ticket pops up from inside the envelope (always in front of the open flap)
+    // Step 6-7: Envelope falls away, transition to standalone ticket
     setTimeout(() => {
       // Steps 2-3: Flap opens upward
       setIsFlapOpen(true);
 
       setTimeout(() => {
-        // Steps 4-5: Ticket pops up from inside
+        // Steps 4-5: Flap tucks behind and ticket starts sliding out immediately
+        setIsFlapBehind(true);
         setIsTicketOut(true);
 
         setTimeout(() => {
-          // Steps 6-7: Flap tucks behind ticket
-          setIsFlapBehind(true);
-
+          // Step 6-7: Envelope falls away, transition to standalone ticket
+          setIsEnvelopeFalling(true);
           setTimeout(() => {
-            // Step 8: Envelope falls away, transition to standalone ticket
-            setIsEnvelopeFalling(true);
-            setTimeout(() => {
-              onOpen();
-            }, 1100);
-          }, 400);
-        }, 500);
-      }, 700);
+            onOpen();
+          }, 1100);
+        }, 1100); // adjusted delay to show the ticket fully risen before falling
+      }, 800); // 800ms is the duration of the flap opening transition
     }, 400);
   };
 
@@ -168,6 +163,12 @@ export default function Envelope({
       <motion.div 
         className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-visible"
         style={{ zIndex: 10 }}
+        animate={{
+          clipPath: isEnvelopeFalling
+            ? `polygon(-300% -300%, 300% -300%, 300% 780px, -300% 780px)`
+            : `polygon(-300% -300%, 300% -300%, 300% 100%, -300% 100%)`
+        }}
+        transition={envTransition}
       >
         <motion.div
           className="absolute origin-bottom pointer-events-auto"
