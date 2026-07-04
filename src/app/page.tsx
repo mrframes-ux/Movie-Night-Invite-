@@ -585,7 +585,7 @@ export default function CreatorPage() {
         </section>
 
         {/* RIGHT COLUMN: LIVE PREVIEW CONTAINER */}
-        <section className="lg:col-span-6 xl:col-span-7 flex flex-col justify-between items-center rounded-2xl border border-[#EBE6DD] shadow-xl p-5 sm:p-7 bg-white/20 relative overflow-hidden backdrop-blur-sm">
+        <section className="lg:col-span-6 xl:col-span-7 flex flex-col justify-between items-center rounded-2xl border border-[#EBE6DD] shadow-xl p-5 sm:p-7 bg-white/20 relative overflow-visible backdrop-blur-sm">
           {/* Header Controls for Preview */}
           <div className="w-full flex justify-between items-center z-10 border-b border-[#5D0D18]/10 pb-4 mb-4">
             <span 
@@ -618,7 +618,7 @@ export default function CreatorPage() {
           </div>
 
           {/* Interactive Screen viewport */}
-          <div className="flex-1 w-full flex items-center justify-center relative rounded-lg border border-[#EBE6DD]/60 bg-[#FDFBF7] shadow-inner overflow-hidden min-h-[460px]">
+          <div className="flex-1 w-full flex items-center justify-center relative rounded-lg border border-[#EBE6DD]/60 bg-[#FDFBF7] shadow-inner overflow-visible min-h-[460px]">
             {/* The same background floats in the preview frame */}
             <div className="absolute inset-0 scale-[0.98] pointer-events-none rounded-lg overflow-hidden">
               <ThemeBackground theme={theme} />
